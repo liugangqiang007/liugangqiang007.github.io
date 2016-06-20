@@ -201,22 +201,22 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
             标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
           </a>
         </li>
       
@@ -265,10 +265,10 @@
     
       <div class="category-all-page">
         <div class="category-all-title">
-            暂无分类
+            目前共计 1 个分类
         </div>
         <div class="category-all">
-          
+          <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hello-World/">Hello World</a><span class="category-list-count">1</span></li></ul>
         </div>
       </div>
     
@@ -316,6 +316,13 @@
             </a>
           </div>
 
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
           
 
           
@@ -372,7 +379,7 @@
                 </li>
               
                 <li class="links-of-blogroll-item">
-                  <a href="note.dagger.cc" title="汪主席" target="_blank">汪主席</a>
+                  <a href="http://note.dagger.cc/" title="汪主席" target="_blank">汪主席</a>
                 </li>
               
             </ul>
@@ -494,28 +501,28 @@
 
   
 
-  
-    
-  
-
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"liugangqiang"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.id = 'duoshuo-script';
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-
-  
-    
-  
 
 
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'liugangqiang';
+      var disqus_identifier = 'categories/index.html';
+      var disqus_title = "分类";
+      var disqus_url = 'http://yoursite.com/categories/index.html';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+    </script>
+  
 
 
 
