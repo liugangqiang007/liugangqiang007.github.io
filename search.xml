@@ -7,6 +7,7 @@
       <title><![CDATA[欢迎使用 StackEdit!]]></title>
       <url>http://liugangqiang.com/2016/06/22/Hello-%E4%B8%AD%E6%96%87%E7%89%88/</url>
       <content type="html"><![CDATA[<p>你好！我是你<strong>StackEdit</strong>[^stackedit]内的第一个Markdown文档。不要删除我，我非常有用！无论什么时候，我都能在 <i class="icon-cog"></i><strong>Settings</strong>对话框的<strong>Utils</strong>（实用工具）选项进行恢复。</p>
+<a id="more"></a>
 <h1 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h1><p>StackEdit 在浏览器存储你的文档，这意味着所有的文档都会自动保存在本地，并可以<strong>离线</strong>访问！</p>
 <blockquote>
 <p><strong>注意:</strong></p>
