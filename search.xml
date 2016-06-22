@@ -6,8 +6,7 @@
     <entry>
       <title><![CDATA[欢迎使用 StackEdit!]]></title>
       <url>http://liugangqiang.com/2016/06/22/Hello-%E4%B8%AD%E6%96%87%E7%89%88/</url>
-      <content type="html"><![CDATA[<p>[toc]</p>
-<p>你好！我是你<strong>StackEdit</strong>[^stackedit]内的第一个Markdown文档。不要删除我，我非常有用！无论什么时候，我都能在 <i class="icon-cog"></i><strong>Settings</strong>对话框的<strong>Utils</strong>（实用工具）选项进行恢复。</p>
+      <content type="html"><![CDATA[<p>你好！我是你<strong>StackEdit</strong>[^stackedit]内的第一个Markdown文档。不要删除我，我非常有用！无论什么时候，我都能在 <i class="icon-cog"></i><strong>Settings</strong>对话框的<strong>Utils</strong>（实用工具）选项进行恢复。</p>
 <hr>
 <h1 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h1><p>StackEdit 在浏览器存储你的文档，这意味着所有的文档都会自动保存在本地，并可以<strong>离线</strong>访问！</p>
 <blockquote>
@@ -26,7 +25,6 @@
 <blockquote>
 <p><strong>提示: </strong>查看 <a href="#publish-a-document"><i class="icon-upload"></i> 发布文档</a> 部分中不同输出格式的介绍 。</p>
 </blockquote>
-<hr>
 <h1 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h1><p>StackEdit 可以结合 <i class="icon-provider-gdrive"></i> <strong>Google Drive</strong> 和 <i class="icon-provider-dropbox"></i> <strong>Dropbox</strong> 使用，把你的文档保存到<em>云端</em>。同步机制是上传你修改的或者下载最新版本的文档。</p>
 <blockquote>
 <p><strong>注意:</strong></p>
@@ -47,7 +45,6 @@
 <blockquote>
 <p><strong>Note:</strong> If you delete the file from <strong>Google Drive</strong> or from <strong>Dropbox</strong>, the document will no longer be synchronized with that location.</p>
 </blockquote>
-<hr>
 <h1 id="Publication"><a href="#Publication" class="headerlink" title="Publication"></a>Publication</h1><p>Once you are happy with your document, you can publish it on different websites directly from StackEdit. As for now, StackEdit can publish on <strong>Blogger</strong>, <strong>Dropbox</strong>, <strong>Gist</strong>, <strong>GitHub</strong>, <strong>Google Drive</strong>, <strong>Tumblr</strong>, <strong>WordPress</strong> and on any SSH server.</p>
 <h4 id="Publish-a-document"><a href="#Publish-a-document" class="headerlink" title=" Publish a document"></a><i class="icon-upload"></i> Publish a document</h4><p>You can publish your document by opening the <i class="icon-upload"></i> <strong>Publish</strong> sub-menu and by choosing a website. In the dialog box, you can choose the publication format:</p>
 <ul>
@@ -66,7 +63,6 @@
 <blockquote>
 <p><strong>Note:</strong> If the file has been removed from the website or the blog, the document will no longer be published on that location.</p>
 </blockquote>
-<hr>
 <h1 id="Markdown-Extra"><a href="#Markdown-Extra" class="headerlink" title="Markdown Extra"></a>Markdown Extra</h1><p>StackEdit supports <strong>Markdown Extra</strong>, which extends <strong>Markdown</strong> syntax with some nice features.</p>
 <blockquote>
 <p><strong>Tip:</strong> You can disable any <strong>Markdown Extra</strong> feature in the <strong>Extensions</strong> tab of the <i class="icon-cog"></i> <strong>Settings</strong> dialog.</p>
