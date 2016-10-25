@@ -4,6 +4,14 @@
   
     
     <entry>
+      <title><![CDATA[iOS分词]]></title>
+      <url>http://liugangqiang.com/2016/10/25/iOS%E5%88%86%E8%AF%8D/</url>
+      <content type="html"><![CDATA[<p>最近锤子科技发布新手机，手机推出重大功能分词（Big Bang），其实 iOS 拥有分词的 API，代码如下</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">- (NSArray *)stringTokenizerWithWord:(NSString *)word &#123;</span><br><span class="line">    NSMutableArray *keyWords = [NSMutableArray new];</span><br><span class="line">    CFStringTokenizerRef ref = CFStringTokenizerCreate(NULL, (__bridge CFStringRef)word, CFRangeMake(0, word.length),kCFStringTokenizerUnitWord,NULL);</span><br><span class="line">    CFRange range;</span><br><span class="line">    NSString *keyWord;</span><br><span class="line">    do &#123;</span><br><span class="line">        CFStringTokenizerAdvanceToNextToken(ref);</span><br><span class="line">        range = CFStringTokenizerGetCurrentTokenRange(ref);</span><br><span class="line">        if (range.length == 0) break;</span><br><span class="line">        keyWord = [word substringWithRange:NSMakeRange(range.location, range.length)];</span><br><span class="line">        [keyWords addObject:keyWord];</span><br><span class="line">    &#125; while (range.length &gt; 0); </span><br><span class="line">    return keyWords;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[CocoaPods安装和使用]]></title>
       <url>http://liugangqiang.com/2016/07/04/CocoaPods%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</url>
       <content type="html"><![CDATA[<h2 id="CocoaPods-简介"><a href="#CocoaPods-简介" class="headerlink" title="CocoaPods 简介"></a>CocoaPods 简介</h2><p>在 iOS 应用的开发过程中，经常会使用到第三方的开源类库，例如AFNetWorking、SDWebimage 等等。通常，我们会把第三方的框架从网上下载下来， 再拖入到我们的项目中，但是这样一个一个的操作十分繁琐，而且存在<strong>第三方库更新不及时，不易集中管理的问题</strong>。<br><a href="https://cocoapods.org" target="_blank" rel="external">CocoaPods</a> 是为解决此类问题而产生的第三方类库管理工具。它将第三方库集中到一起管理，只需要一行终端命令就第三方库进行安装、更新等处理。绝大部分有名的开源类库，都支持CocoaPods。作为iOS开发程序员，掌握 CocoaPods 的使用时必不可少的基本技能之一。</p>
