@@ -86,7 +86,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="C语言的内存分布," />
 
 
 
@@ -102,15 +102,52 @@
 
 
 
-<meta name="description" content="iOS Developer">
-<meta property="og:type" content="website">
-<meta property="og:title" content="角落里的杂货铺">
-<meta property="og:url" content="http://liugangqiang.com/index.html">
+<meta name="description" content="总览经典的 C 语言内存分布包括以下 5 个部分:
+
+代码区 (Text segment)
+初始化数据区 (Initialized data segment)
+未初始化数据区 (Uninitialized data segment)
+栈区 (Stack)
+堆区 (Heap)
+
+
+
+
+这是 C 语言程序运行中的经典内存布局，从低地址区域到高以此排布是：代码区、初始化数据区、未初始化数据区、堆、栈。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言的内存分布">
+<meta property="og:url" content="http://liugangqiang.com/2018/05/09/C语言的内存分布/index.html">
 <meta property="og:site_name" content="角落里的杂货铺">
-<meta property="og:description" content="iOS Developer">
+<meta property="og:description" content="总览经典的 C 语言内存分布包括以下 5 个部分:
+
+代码区 (Text segment)
+初始化数据区 (Initialized data segment)
+未初始化数据区 (Uninitialized data segment)
+栈区 (Stack)
+堆区 (Heap)
+
+
+
+
+这是 C 语言程序运行中的经典内存布局，从低地址区域到高以此排布是：代码区、初始化数据区、未初始化数据区、堆、栈。">
+<meta property="og:image" content="http://liugangqiang.com/uploads/memoryLayoutC.jpg">
+<meta property="og:image" content="http://liugangqiang.com/uploads/memoryLayoutD.png">
+<meta property="og:updated_time" content="2018-05-08T16:00:05.723Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="角落里的杂货铺">
-<meta name="twitter:description" content="iOS Developer">
+<meta name="twitter:title" content="C语言的内存分布">
+<meta name="twitter:description" content="总览经典的 C 语言内存分布包括以下 5 个部分:
+
+代码区 (Text segment)
+初始化数据区 (Initialized data segment)
+未初始化数据区 (Uninitialized data segment)
+栈区 (Stack)
+堆区 (Heap)
+
+
+
+
+这是 C 语言程序运行中的经典内存布局，从低地址区域到高以此排布是：代码区、初始化数据区、未初始化数据区、堆、栈。">
+<meta name="twitter:image" content="http://liugangqiang.com/uploads/memoryLayoutC.jpg">
 
 
 
@@ -131,9 +168,9 @@
 
 
 
-  <link rel="canonical" href="http://liugangqiang.com/"/>
+  <link rel="canonical" href="http://liugangqiang.com/2018/05/09/C语言的内存分布/"/>
 
-  <title> 角落里的杂货铺 </title>
+  <title> C语言的内存分布 | 角落里的杂货铺 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -154,9 +191,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-right 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -276,9 +311,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -298,10 +333,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2018/05/09/C语言的内存分布/" itemprop="url">
-                  C语言的内存分布
-                </a>
+                C语言的内存分布
               
             
           </h1>
@@ -367,9 +399,7 @@
       
 
       
-        
-          
-            <a id="more"></a>
+        <a id="more"></a>
 <h2 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h2><p>经典的 C 语言内存分布包括以下 5 个部分:</p>
 <ol>
 <li>代码区 (Text segment)</li>
@@ -429,414 +459,81 @@
 <p>   栈：在函数调用时，第一个进栈的是主函数中后的下一条指令（函数调用语句的下一条可执行语句）的地址，然后是函数的各个参数，在大多数的C编译器中，参数是由右往左入栈的，然后是函数中的局部变量（静态变量不入栈）。当本次函数调用结束后，局部变量先出栈，然后是参数，最后栈顶指针指向最开始存的地址，也就是主函数中的下一条指令，程序由该点继续运行。栈中的内存是在程序编译完成以后就可以确定的，不论占用空间大小，还是每个变量的类型。</p>
 <h3 id="防止越界"><a href="#防止越界" class="headerlink" title="防止越界"></a>防止越界</h3><p>   无论是堆还是栈，都要防止越界现象的发生（除非故意使其越界），因为越界的结果要么是程序崩溃，要么是摧毁程序的堆、栈结构，产生意想不到的结果。debug相当困难。</p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/25/iOS分词/" itemprop="url">
-                  iOS分词
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-25T16:46:41+08:00" content="2016-10-25">
-              2016-10-25
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/10/25/iOS分词/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/25/iOS分词/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
+            <a href="/tags/C语言的内存分布/" rel="tag">#C语言的内存分布</a>
           
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>最近锤子科技发布新手机，手机推出重大功能分词（Big Bang），其实 iOS 拥有分词的 API，代码如下</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/10/25/iOS分词/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/25/iOS分词/" rel="next" title="iOS分词">
+                <i class="fa fa-chevron-left"></i> iOS分词
+              </a>
+            
           </div>
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+          <div class="post-nav-prev post-nav-item">
             
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/04/CocoaPods安装和使用/" itemprop="url">
-                  CocoaPods安装和使用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-04T01:12:43+08:00" content="2016-07-04">
-              2016-07-04
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/CocoaPods/" itemprop="url" rel="index">
-                    <span itemprop="name">CocoaPods</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/04/CocoaPods安装和使用/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/04/CocoaPods安装和使用/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h2 id="CocoaPods-简介"><a href="#CocoaPods-简介" class="headerlink" title="CocoaPods 简介"></a>CocoaPods 简介</h2><p>在 iOS 应用的开发过程中，经常会使用到第三方的开源类库，例如AFNetWorking、SDWebimage 等等。通常，我们会把第三方的框架从网上下载下来， 再拖入到我们的项目中，但是这样一个一个的操作十分繁琐，而且存在<strong>第三方库更新不及时，不易集中管理的问题</strong>。<br><a href="https://cocoapods.org">CocoaPods</a> 是为解决此类问题而产生的第三方类库管理工具。它将第三方库集中到一起管理，只需要一行终端命令就第三方库进行安装、更新等处理。绝大部分有名的开源类库，都支持CocoaPods。作为iOS开发程序员，掌握 CocoaPods 的使用时必不可少的基本技能之一。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/04/CocoaPods安装和使用/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
+
+    <div class="post-spread">
       
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
 
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/17/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-17T16:11:24+08:00" content="2016-06-17">
-              2016-06-17
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Hello-World/" itemprop="url" rel="index">
-                    <span itemprop="name">Hello World</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/17/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/17/hello-world/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><p>Welcome to <em>The Poem and The Distance</em> ! I`m <em>刚刚</em> .</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/06/17/hello-world/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
       
     </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
@@ -844,6 +541,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2018/05/09/C语言的内存分布/"
+           data-title="C语言的内存分布" data-url="http://liugangqiang.com/2018/05/09/C语言的内存分布/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -863,8 +568,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://avatars2.githubusercontent.com/u/11585772?v=3&s=460"
@@ -934,6 +648,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#总览"><span class="nav-number">1.</span> <span class="nav-text">总览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码区"><span class="nav-number">2.</span> <span class="nav-text">代码区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化数据区"><span class="nav-number">3.</span> <span class="nav-text">初始化数据区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#未初始化数据区"><span class="nav-number">4.</span> <span class="nav-text">未初始化数据区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈区"><span class="nav-number">5.</span> <span class="nav-text">栈区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆区"><span class="nav-number">6.</span> <span class="nav-text">堆区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆区和栈区的区别"><span class="nav-number">7.</span> <span class="nav-text">堆区和栈区的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#管理分配方式"><span class="nav-number">7.1.</span> <span class="nav-text">管理分配方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#空间大小"><span class="nav-number">7.2.</span> <span class="nav-text">空间大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#是否产生碎片"><span class="nav-number">7.3.</span> <span class="nav-text">是否产生碎片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增长方向"><span class="nav-number">7.4.</span> <span class="nav-text">增长方向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分配效率"><span class="nav-number">7.5.</span> <span class="nav-text">分配效率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#申请后系统的响应"><span class="nav-number">7.6.</span> <span class="nav-text">申请后系统的响应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存储的内容"><span class="nav-number">7.7.</span> <span class="nav-text">存储的内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防止越界"><span class="nav-number">7.8.</span> <span class="nav-text">防止越界</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -1037,6 +762,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
