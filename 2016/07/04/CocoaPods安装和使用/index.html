@@ -106,14 +106,14 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="CocoaPods安装和使用">
 <meta property="og:url" content="http://liugangqiang.com/2016/07/04/CocoaPods安装和使用/index.html">
-<meta property="og:site_name" content="角落里的杂货铺">
+<meta property="og:site_name" content="角落杂货铺">
 <meta property="og:description" content="CocoaPods 简介在 iOS 应用的开发过程中，经常会使用到第三方的开源类库，例如AFNetWorking、SDWebimage 等等。通常，我们会把第三方的框架从网上下载下来， 再拖入到我们的项目中，但是这样一个一个的操作十分繁琐，而且存在第三方库更新不及时，不易集中管理的问题。CocoaPods 是为解决此类问题而产生的第三方类库管理工具。它将第三方库集中到一起管理，只需要一行终端命令就">
 <meta property="og:image" content="http://liugangqiang.com/uploads/Cocopods-image1.png">
 <meta property="og:image" content="http://liugangqiang.com/uploads/Cocopods-image2.png">
 <meta property="og:image" content="http://liugangqiang.com/uploads/Cocopods-image3.png">
 <meta property="og:image" content="http://liugangqiang.com/uploads/Cocopods-image5.png">
 <meta property="og:image" content="http://liugangqiang.com/uploads/Cocopods-image4.png">
-<meta property="og:updated_time" content="2018-05-08T03:22:12.711Z">
+<meta property="og:updated_time" content="2018-05-09T04:22:24.742Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CocoaPods安装和使用">
 <meta name="twitter:description" content="CocoaPods 简介在 iOS 应用的开发过程中，经常会使用到第三方的开源类库，例如AFNetWorking、SDWebimage 等等。通常，我们会把第三方的框架从网上下载下来， 再拖入到我们的项目中，但是这样一个一个的操作十分繁琐，而且存在第三方库更新不及时，不易集中管理的问题。CocoaPods 是为解决此类问题而产生的第三方类库管理工具。它将第三方库集中到一起管理，只需要一行终端命令就">
@@ -140,7 +140,7 @@
 
   <link rel="canonical" href="http://liugangqiang.com/2016/07/04/CocoaPods安装和使用/"/>
 
-  <title> CocoaPods安装和使用 | 角落里的杂货铺 </title>
+  <title> CocoaPods安装和使用 | 角落杂货铺 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -171,11 +171,11 @@
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">角落里的杂货铺</span>
+      <span class="site-title">角落杂货铺</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
-  <p class="site-subtitle">平庸，就是失去卓越信念的那个瞬间</p>
+  <p class="site-subtitle">大多数时候，都在思考自己该走向何方</p>
 </div>
 
 <div class="site-nav-toggle">
@@ -383,18 +383,18 @@
       
         <h2 id="CocoaPods-简介"><a href="#CocoaPods-简介" class="headerlink" title="CocoaPods 简介"></a>CocoaPods 简介</h2><p>在 iOS 应用的开发过程中，经常会使用到第三方的开源类库，例如AFNetWorking、SDWebimage 等等。通常，我们会把第三方的框架从网上下载下来， 再拖入到我们的项目中，但是这样一个一个的操作十分繁琐，而且存在<strong>第三方库更新不及时，不易集中管理的问题</strong>。<br><a href="https://cocoapods.org" target="_blank" rel="external">CocoaPods</a> 是为解决此类问题而产生的第三方类库管理工具。它将第三方库集中到一起管理，只需要一行终端命令就第三方库进行安装、更新等处理。绝大部分有名的开源类库，都支持CocoaPods。作为iOS开发程序员，掌握 CocoaPods 的使用时必不可少的基本技能之一。</p>
 <a id="more"></a>
-<h2 id="CocoaPods-的安装"><a href="#CocoaPods-的安装" class="headerlink" title="CocoaPods 的安装"></a>CocoaPods 的安装</h2><h3 id="安装配置-Ruby-环境"><a href="#安装配置-Ruby-环境" class="headerlink" title="安装配置 Ruby 环境"></a>安装配置 Ruby 环境</h3><h4 id="检查-Ruby-环境（安装）"><a href="#检查-Ruby-环境（安装）" class="headerlink" title="检查 Ruby 环境（安装）"></a>检查 Ruby 环境（安装）</h4><p>CocoaPods 是使用 Ruby 语言编写，所以安装之前需要先安装 Ruby 环境。默认情况下，Mac OS X 系统已经安装好 Ruby。在终端直接使用以下命令，确认系统系统 Ruby 的版本信息：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ruby --version</span><br><span class="line">或者 </span><br><span class="line">$ ruby --v</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出版本信息大致如下</span></span><br><span class="line"><span class="comment">// ruby 2.0.0p648 (2015-12-16 revision 53162) [universal.x86_64-darwin15]</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="CocoaPods-的安装"><a href="#CocoaPods-的安装" class="headerlink" title="CocoaPods 的安装"></a>CocoaPods 的安装</h2><h3 id="安装配置-Ruby-环境"><a href="#安装配置-Ruby-环境" class="headerlink" title="安装配置 Ruby 环境"></a>安装配置 Ruby 环境</h3><h4 id="检查-Ruby-环境（安装）"><a href="#检查-Ruby-环境（安装）" class="headerlink" title="检查 Ruby 环境（安装）"></a>检查 Ruby 环境（安装）</h4><p>CocoaPods 是使用 Ruby 语言编写，所以安装之前需要先安装 Ruby 环境。默认情况下，Mac OS X 系统已经安装好 Ruby。在终端直接使用以下命令，确认系统系统 Ruby 的版本信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ruby --version</span><br><span class="line">或者 </span><br><span class="line">$ ruby --v</span><br><span class="line"></span><br><span class="line">// 输出版本信息大致如下</span><br><span class="line">// ruby 2.0.0p648 (2015-12-16 revision 53162) [universal.x86_64-darwin15]</span><br></pre></td></tr></table></figure></p>
 <p>如果没有安装 Ruby，<a href="https://github.com/ruby-china/ruby-china/wiki/Mac-OS-X-上安装-Ruby" target="_blank" rel="external">点击这里进行安装</a></p>
 <h4 id="更换-Ruby-源链接"><a href="#更换-Ruby-源链接" class="headerlink" title="更换 Ruby 源链接"></a>更换 Ruby 源链接</h4><p>Ruby 默认的源为 <code>https://rubygems.org</code>，因为这个源在墙外，直接访问这个源使用 CocoaPods 速度会非常慢（很可能安装失败）。<del>但是，我们可以使用淘宝的 Ruby 镜像来访问 CocoaPods</del>（淘宝镜像服务已经停止，由<code>https://gems.ruby-china.org/</code>接管）。</p>
-<p>查看 Ruby 源。如果网址为 <del><code>https://ruby.taobao.org/</code></del>（<code>https://gems.ruby-china.org/</code>），则说明之前已经进行过更换，可以直接安装 CocoaPods。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ gem sources -l</span><br><span class="line"><span class="comment">// *** CURRENT SOURCES ***</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// https://rubygems.org/</span></span><br></pre></td></tr></table></figure></p>
-<p>移除 Ruby 源<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ gem sources --remove https:<span class="comment">//rubygems.org/</span></span><br><span class="line"><span class="comment">// https://rubygems.org/ removed from sources</span></span><br></pre></td></tr></table></figure></p>
-<p>添加新的 Ruby 源<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ gem sources -a https:<span class="comment">//gems.ruby-china.org/</span></span><br><span class="line"><span class="comment">// https://gems.ruby-china.org/ added to sources</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// $ gem sources -a https://ruby.taobao.org/ 已废弃</span></span><br></pre></td></tr></table></figure></p>
+<p>查看 Ruby 源。如果网址为 <del><code>https://ruby.taobao.org/</code></del>（<code>https://gems.ruby-china.org/</code>），则说明之前已经进行过更换，可以直接安装 CocoaPods。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ gem sources -l</span><br><span class="line">// *** CURRENT SOURCES ***</span><br><span class="line"></span><br><span class="line">// https://rubygems.org/</span><br></pre></td></tr></table></figure></p>
+<p>移除 Ruby 源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ gem sources --remove https://rubygems.org/</span><br><span class="line">// https://rubygems.org/ removed from sources</span><br></pre></td></tr></table></figure></p>
+<p>添加新的 Ruby 源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ gem sources -a https://gems.ruby-china.org/</span><br><span class="line">// https://gems.ruby-china.org/ added to sources</span><br><span class="line"></span><br><span class="line">// $ gem sources -a https://ruby.taobao.org/ 已废弃</span><br></pre></td></tr></table></figure></p>
 <p>检查是否添加成功<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gem sources -l</span><br></pre></td></tr></table></figure></p>
 <p>在终端中显示如下结果时，说明更换成功<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">*** CURRENT SOURCES ***</span><br><span class="line"></span><br><span class="line">https:<span class="comment">//gems.ruby-china.org/</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="安装-CocoaPods"><a href="#安装-CocoaPods" class="headerlink" title="安装 CocoaPods"></a>安装 CocoaPods</h3><p>在终端运行<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo gem install cocoapods</span><br></pre></td></tr></table></figure></p>
 <p>运行之后，需要输入电脑的密码，并且没有密码输入位数的提醒。密码输入正确之后就进行安装了，安装可能需要很长时间，耐心等待。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Fetching: cocoapods-core<span class="number">-1.0</span><span class="number">.1</span>.gem (<span class="number">100</span>%)</span><br><span class="line">Successfully installed cocoapods-core<span class="number">-1.0</span><span class="number">.1</span></span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">Parsing documentation <span class="keyword">for</span> cocoapods<span class="number">-1.0</span><span class="number">.1</span></span><br><span class="line">Installing ri documentation <span class="keyword">for</span> cocoapods<span class="number">-1.0</span><span class="number">.1</span></span><br><span class="line"><span class="number">13</span> gems installed</span><br></pre></td></tr></table></figure></p>
 <p>出现类似这样的提示，就说明 CocoaPods 安装成功了</p>
-<h2 id="CocoaPods-的使用"><a href="#CocoaPods-的使用" class="headerlink" title="CocoaPods 的使用"></a>CocoaPods 的使用</h2><h3 id="创建-Podfile-文件"><a href="#创建-Podfile-文件" class="headerlink" title="创建 Podfile 文件"></a>创建 Podfile 文件</h3><p>在终端定位到需要使用 CocoaPods 的项目的工程目录，使用命令创建一个 Podfile 文件：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd /Users/<span class="keyword">new</span>/Desktop/YourProject</span><br><span class="line">$ pod init</span><br></pre></td></tr></table></figure></p>
+<h2 id="CocoaPods-的使用"><a href="#CocoaPods-的使用" class="headerlink" title="CocoaPods 的使用"></a>CocoaPods 的使用</h2><h3 id="创建-Podfile-文件"><a href="#创建-Podfile-文件" class="headerlink" title="创建 Podfile 文件"></a>创建 Podfile 文件</h3><p>在终端定位到需要使用 CocoaPods 的项目的工程目录，使用命令创建一个 Podfile 文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd /Users/new/Desktop/YourProject</span><br><span class="line">$ pod init</span><br></pre></td></tr></table></figure></p>
 <p>出现如下文件<br><img src="/uploads/Cocopods-image1.png" alt=""><br>创建成功</p>
 <h3 id="编辑-Podfile-文件"><a href="#编辑-Podfile-文件" class="headerlink" title="编辑 Podfile 文件"></a>编辑 Podfile 文件</h3><p>打开 Podfile 文件<br><img src="/uploads/Cocopods-image2.png" alt=""><br>带<code>#</code>的为注释</p>
 <ol>
@@ -408,7 +408,7 @@
 <p><code>pod install</code> 和 <code>pod update</code>执行过程中都会更新 podpec 的索引，有时速度会很慢，为了提高速度，可以输入如下命令，在不更新索引的情况下执行命令：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pod install --no-repo-update</span><br></pre></td></tr></table></figure></p>
 <p>也可以在每条命令后加 <code>--verbose</code> 显示详细的命令执行内容</p>
 <h3 id="项目打开方式改变"><a href="#项目打开方式改变" class="headerlink" title="项目打开方式改变"></a>项目打开方式改变</h3><p>安装成功后，项目目录下回多出几个文件，以后打开文件要使用箭头所指白色的<code>.xcworkspace</code>文件，不再使用蓝色的<code>.xcodeproj</code>文件。<br><img src="/uploads/Cocopods-image3.png" alt=""><br>项目打开之后，层级结构如下<br><img src="/uploads/Cocopods-image5.png" alt=""><br>上边的是我们原先的项目代码，下边的是 CocoaPods 文件以及它导入的第三方库。</p>
-<p>需要注意的是，要引用 CocoaPods 导入的第三方库，要使用 <code>&lt;&gt;</code>:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;AFNetworking.h&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<p>需要注意的是，要引用 CocoaPods 导入的第三方库，要使用 <code>&lt;&gt;</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;AFNetworking.h&gt;</span><br></pre></td></tr></table></figure></p>
 <h3 id="添加或者删除第三方库"><a href="#添加或者删除第三方库" class="headerlink" title="添加或者删除第三方库"></a>添加或者删除第三方库</h3><p>CocoaPods 安装完成后，再安装或者删除第三方库，只需要编辑 Podfile 文件添加或者删除对应的引用，然后执行<code>pod install</code> 或者 <code>pod update</code>命令即可。<br><img src="/uploads/Cocopods-image4.png" alt=""></p>
 
       
