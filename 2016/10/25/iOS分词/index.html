@@ -105,10 +105,10 @@
 <meta name="description" content="最近锤子科技发布新手机，手机推出重大功能分词（Big Bang），其实 iOS 拥有分词的 API，代码如下">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS分词">
-<meta property="og:url" content="http://liugangqiang.com/2016/10/25/iOS分词/index.html">
-<meta property="og:site_name" content="角落杂货铺">
+<meta property="og:url" content="http://www.liugangqiang.com/2016/10/25/iOS分词/index.html">
+<meta property="og:site_name" content="街角杂货店">
 <meta property="og:description" content="最近锤子科技发布新手机，手机推出重大功能分词（Big Bang），其实 iOS 拥有分词的 API，代码如下">
-<meta property="og:updated_time" content="2018-05-09T04:22:44.460Z">
+<meta property="og:updated_time" content="2018-05-22T02:32:34.196Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS分词">
 <meta name="twitter:description" content="最近锤子科技发布新手机，手机推出重大功能分词（Big Bang），其实 iOS 拥有分词的 API，代码如下">
@@ -132,9 +132,9 @@
 
 
 
-  <link rel="canonical" href="http://liugangqiang.com/2016/10/25/iOS分词/"/>
+  <link rel="canonical" href="http://www.liugangqiang.com/2016/10/25/iOS分词/"/>
 
-  <title> iOS分词 | 角落杂货铺 </title>
+  <title> iOS分词 | 街角杂货店 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -165,7 +165,7 @@
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">角落杂货铺</span>
+      <span class="site-title">街角杂货店</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -365,7 +365,7 @@
       
         <p>最近锤子科技发布新手机，手机推出重大功能分词（Big Bang），其实 iOS 拥有分词的 API，代码如下</p>
 <a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (NSArray *)stringTokenizerWithWord:(NSString *)word &#123;</span><br><span class="line">    NSMutableArray *keyWords = [NSMutableArray new];</span><br><span class="line">    CFStringTokenizerRef ref = CFStringTokenizerCreate(NULL, (__bridge CFStringRef)word, CFRangeMake(0, word.length),kCFStringTokenizerUnitWord,NULL);</span><br><span class="line">    CFRange range;</span><br><span class="line">    NSString *keyWord;</span><br><span class="line">    do &#123;</span><br><span class="line">        CFStringTokenizerAdvanceToNextToken(ref);</span><br><span class="line">        range = CFStringTokenizerGetCurrentTokenRange(ref);</span><br><span class="line">        if (range.length == 0) break;</span><br><span class="line">        keyWord = [word substringWithRange:NSMakeRange(range.location, range.length)];</span><br><span class="line">        [keyWords addObject:keyWord];</span><br><span class="line">    &#125; while (range.length &gt; 0); </span><br><span class="line">    return keyWords;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (NSArray *)stringTokenizerWithWord:(NSString *)word &#123;</span><br><span class="line">    NSMutableArray *keyWords = [NSMutableArray <span class="keyword">new</span>];</span><br><span class="line">    CFStringTokenizerRef ref = CFStringTokenizerCreate(<span class="literal">NULL</span>, (__bridge CFStringRef)word, CFRangeMake(<span class="number">0</span>, word.length),kCFStringTokenizerUnitWord,<span class="literal">NULL</span>);</span><br><span class="line">    CFRange range;</span><br><span class="line">    NSString *keyWord;</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        CFStringTokenizerAdvanceToNextToken(ref);</span><br><span class="line">        range = CFStringTokenizerGetCurrentTokenRange(ref);</span><br><span class="line">        <span class="keyword">if</span> (range.length == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">        keyWord = [word substringWithRange:NSMakeRange(range.location, range.length)];</span><br><span class="line">        [keyWords addObject:keyWord];</span><br><span class="line">    &#125; <span class="keyword">while</span> (range.length &gt; <span class="number">0</span>); </span><br><span class="line">    <span class="keyword">return</span> keyWords;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -456,7 +456,7 @@
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2016/10/25/iOS分词/"
-           data-title="iOS分词" data-url="http://liugangqiang.com/2016/10/25/iOS分词/">
+           data-title="iOS分词" data-url="http://www.liugangqiang.com/2016/10/25/iOS分词/">
       </div>
     
   </div>
@@ -501,7 +501,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">7</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -509,7 +509,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -518,7 +518,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

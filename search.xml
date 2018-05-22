@@ -4,8 +4,191 @@
   
     
     <entry>
+      <title><![CDATA[iOS项目Project和Target配置详解]]></title>
+      <url>http://www.liugangqiang.com/2018/05/18/iOS%E9%A1%B9%E7%9B%AEProject%E5%92%8CTarget%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/</url>
+      <content type="html"><![CDATA[<p>iOS 项目一般使用 Xcode 进行开发。项目创建完成后，点击项目名称，在项目导航栏的右侧板面上显示有 PROJECT 和 TARGETS 两部分。iOS 项目的开发环境搭建主要就是基于我们项目的 Project 和 Target 进行展开的，下面对这两部分进行详解，<a href="https://developer.apple.com/library/content/featuredarticles/XcodeConcepts/Concept-Projects.html#//apple_ref/doc/uid/TP40009328-CH5-SW1" target="_blank" rel="external">参考官方文档</a>。</p>
+<p><img src="iOS项目Project和Target配置详解.assets/ProjectAndTargets_01.jpeg" alt=""></p>
+<a id="more"></a>
+<h1 id="Project、Target、Build-Settings、Workspace和Scheme"><a href="#Project、Target、Build-Settings、Workspace和Scheme" class="headerlink" title="Project、Target、Build Settings、Workspace和Scheme"></a>Project、Target、Build Settings、Workspace和Scheme</h1><h2 id="Project"><a href="#Project" class="headerlink" title="Project"></a>Project</h2><p>一个 project 是构建一个或多个软件产品所需的所有文件、资源、信息/配置的存储库（repository）。一个 project 包含所有用于构建产品（build your products）的元素，并维护这些元素之间的关系。它可以包含一个或多个 Targets。一个project 为所有的 targets 定义默认的 build setting（每一个 target 可以自定义它们的 build setting，这些自定义的 setting会覆盖 project 默认的 build setting）。</p>
+<p>一个 Xcode project 文件包含以下几部分信息：</p>
+<ul>
+<li>相关源文件（source files）<ul>
+<li>源代码，包括 .h 和 .m 文件</li>
+<li>libraries 和 frameworks，内部的和外部的</li>
+<li>资源文件</li>
+<li>图片资源文件</li>
+<li>nib 文件</li>
+</ul>
+</li>
+<li>用于在结构导航器（ structure navigator）中组织源文件（source files）的组（groups）</li>
+<li>Project-level build configurations（项目级构建配置），可以有多个，例如 debug 和 release buid setting</li>
+<li>Targets，每个 target 指定：<ul>
+<li>通过 project 构建一个产品（product）的引用</li>
+<li>构建该产品（product）所需要的资源文件的引用</li>
+<li>用于构建该产品（product）的构建配置（build configurations），包括对其他 Targets 和 settings 的依赖；如果 targets 的 build configurations 没有配置时，使用 Project-level build configurations</li>
+</ul>
+</li>
+<li>用来 debug 和 test 程序的可执行环境，包括：<ul>
+<li>从 Xcode run 或 debug 时启动的可执行文件</li>
+<li>要传递给可执行文件的命令行参数</li>
+<li>程序 run 时要设置的环境变量</li>
+</ul>
+</li>
+</ul>
+<p>一个 project 可以单独存在，也可以包含在一个 workspace 里。</p>
+<h2 id="Target"><a href="#Target" class="headerlink" title="Target"></a>Target</h2><p>一个 target 确定一个产品（product）的构建，包括一些指令（instructions）——怎么从一个 project 或者 workspace 的一堆文件导出一个产品。一个 target 对应一个 product，它管理着一个 product 的 build system 的“输入”（一堆源文件和一些处理这些源文件的 instruction）。一个 project 可以包含多个 target，每一个 targe 生成一个 product。</p>
+<p>构建一个 product 的 instructions （指令）的表现形式是 build settings 和 build phases，可以在 Xcode project editor 中检查和编辑。一个 target 的 build settings 继承 project 的 build settings，但是可以重写覆盖 project settings。同一时间里只有一个 active target ，由 Xcode Scheme 指定。</p>
+<p>一个 target 和它创建的 product 可以跟其他 target 关联。如果一个 target 需要另一个的 <code>output</code>以完成构建，可以说成第一个 target 依赖第二个。</p>
+<p>如果两个 targets 在同一个 workspace 中，Xcode 可以发现他们的依赖关系，从而 builds the products 按照特定的顺序。这样的关系被称为“implicit dependency（隐式依赖）”。可以为俩个 targets 指定明确的依赖或者不依赖关系在 build setting 里面。</p>
+<p>例如：在同一个 workspace 中，可以构建一个 library 和一个链接这个 library 的 application。Xcode 可以发现这种依赖关系，并首先自动构建 library。但是，如果想链接某个版本的 library，就需要在  build settings 明确依赖关系，该依赖项会覆盖隐式依赖项。</p>
+<h2 id="Build-Settings"><a href="#Build-Settings" class="headerlink" title="Build Settings"></a>Build Settings</h2><p>一个 build Setting 是一个变量，包含着怎么 build product 的处理信息。例如，可以指定 Xcode 传递给编译器的选项</p>
+<p>Build settings 有 project 和 target 两个级别，project－level 中的 build setting 适用项目中所有的 targets，只要该项 setting 没有被 target 级别的重写覆盖。</p>
+<p>每个 target 管理着创建一个 product 的源文件，一个 build configuration 指定一组 build settings，用于以特定的方式构建一个 product。例如，通常有 debug 和 release 俩种分开的 build configurations。</p>
+<p>一个 build Setting 包含两个部分：setting title（标题） 和 definition（定义）——类似于 key-value 结构。前者标示该 build Setting，并且可以被用在其他的settings。后者是一个常量或一个表达式，用于确定 build setting 的值。一个 build setting 也可以有一个显示名称，被用于在 Xcode 界面中显示 build setting。</p>
+<p>另外，当你通过 project 模板新建一个 project 时，Xcode 会生成一个默认的 build settings，你也可以为 project 或者某个 target 创建自定义build settings。你还可以设定 conditional build settings，一个 conditional build setting 的值取决于是否满足一个或多个先决条件。这个机制也可以被用在指定用于基于目标架构构建产品的SDK。</p>
+<h2 id="Workspace"><a href="#Workspace" class="headerlink" title="Workspace"></a>Workspace</h2><p>一个 workspace 是一个 Xcode 文档，groups(组合)不同的project、文档，所以你可以同时管理多个project。一个 workspace 可以包含任意数量的 Xcode projects 和其他文件。除了组织每个 Xcode projects 中的所有文件外，workspace 还提供 projects 与他们各自 targets 之间的隐式/显示关联。</p>
+<h3 id="Workspace-扩展-workflows-的范围"><a href="#Workspace-扩展-workflows-的范围" class="headerlink" title="Workspace 扩展 workflows 的范围"></a>Workspace 扩展 workflows 的范围</h3><p>一个工程文件（project file）包含指向 project 中所有文件的指针，build configurations 和 project 的其他信息。在Xcode 3 之前，projects 之前关联是很复杂的事情，大多数工作流仅限于单个 project。从 Xcode 4 之后，你可以创建一个 workspace 去包含多个 projects 和其他文件。</p>
+<p>除了提供被包含在 Xcode project 中的所有文件的访问外，workspace 还拓展许多重要的 Xcode workflows 的范围。例如，由于 indexing（文件索引）遍布整个 workspace，所以，在 workspace 中， code completion、Jump to Definition 和所有其他的内容感知特性，可以在所有 projects 中无缝衔接运作。因为 refactoring operations（重构操作）横跨整个 workspace 的所有内容，所以，你可以在一个 framework project 中重构 API，并且在其他 application projects 中使用这个 framework。构建时，一个 project 可以利用 workspace 中其他 projects 的 products。</p>
+<p>workspace 文档包含被囊括的 projects 和其他文件，不再有其他数据。一个 project 可以被多个 workspace 持有。下图展示一个 workspace 包含两个 Xcode projects 以及 一个文档 project。</p>
+<p>备注：workspace 类似.xcodeproj文件，他不是一个文件夹，而是一个有管理、索引作用的一个文件。</p>
+<p><img src="iOS项目Project和Target配置详解.assets/ProjectAndTargets_02.jpg" alt="art/workspace_hierarchy.jpg"></p>
+<h3 id="Workspaces-中的-Projects-共享-Build-Directory"><a href="#Workspaces-中的-Projects-共享-Build-Directory" class="headerlink" title="Workspaces 中的 Projects 共享 Build Directory"></a>Workspaces 中的 Projects 共享 Build Directory</h3><p>默认情况下，workspace 中的所有 Xcode projects 都构建在同一目录中（称为工作区构建目录 - works pace build directory）。每一个 workspace 都有自己的 build directory。因为 workspace 中 所有 projects 的所有文件都唯一同一个  build directory，所以所有这些文件对每个项目都是可见的。因此，如果两个或多个 projects 使用同一个 library（库），你不需要把他们分别复制到每个 project 文件夹中。</p>
+<p>Xcode 会检查 build directory 里的文件并发现其中的隐式依赖关系（implicit dependencies）。例如，workspace 中包含的一个 project 生成的库，被另一个 project 引用，Xcode 会在生成另一个 project 之前自动生成这个库，即使 build configuration 未标明这种显示依赖（dependency explicit）。如果需要，你可以进行显示设置覆盖这种隐式依赖。对于“显示依赖”，你必须创建项目引用。</p>
+<p>workspace 中的每一个 project 都有保持自己的特性。你能通过 project 的打开方式控制 project 受不受其他 projects 的影响，如单独打开 project 而不是通过 workspace。由于 project 可以属于多个 workspace，您可以以任意数量的组合来处理 projects，而不必重新配置任何 project 或 workspace。</p>
+<p>你可以使用 workspace 默认的 build directory，也可以自己指定一个。注意：如果一个 project 指定一个 build directory，这个 build directory 会覆盖全部所在的 workspace 里的默认 build directory。</p>
+<h2 id="Xcode-Scheme"><a href="#Xcode-Scheme" class="headerlink" title="Xcode Scheme"></a>Xcode Scheme</h2><p>一个 Xcode Scheme（方案）定义三样东西：一个要生成的目标（targets to build）的集合、building 时使用的配置（configuration）、以及要执行的测试集合。</p>
+<p>你可以拥有任意数量的 scheme，但一次只能有一个是活跃状态（active），你可以指定 scheme 是否储存在 project 中（这种方案下，scheme 在每一个包含这个 project 的 workspace 中都可用），或者储存在 workspace 中（仅在当前 workspace 中可用）。选择要激活的 scheme 时，可以选择运行目标（设备）。</p>
+<h1 id="Project-和-Target-的属性设置"><a href="#Project-和-Target-的属性设置" class="headerlink" title="Project 和 Target 的属性设置"></a>Project 和 Target 的属性设置</h1><p>Project 和 Target 的属性设置，如下边两张图所示，上边一张是 project 的，只包含 <code>Info</code> 和 <code>Build Settings</code> 两个选项卡，只是对项目资源进行简单的设置；下边是 target 的，包含 <code>General</code>、<code>Capabilities</code>、<code>Resource tags</code>、 <code>Info</code>、<code>Build Settings</code>、<code>Build phases</code>和<code>Build rules</code>七个选项卡，比较复杂，每一项都直接决定了我们最终 App（product）的显示效果。</p>
+<p><img src="iOS项目Project和Target配置详解.assets/ProjectAndTargets_03.png" alt="project 属性示意图"></p>
+<p><img src="iOS项目Project和Target配置详解.assets/ProjectAndTargets_04.png" alt="target 属性示意图"></p>
+<h2 id="Project-属性"><a href="#Project-属性" class="headerlink" title="Project 属性"></a>Project 属性</h2><p>Project 的属性包含<code>Info</code> 和 <code>Build Settings</code> 两个选项卡的内容，但是 target 的<code>Build Settings</code>和 project 的是关联的，会继承部分 project 的<code>Build Settings</code>的属性，这里主要讲解<code>Info</code> ，<code>Build Settings</code>后面与 target 的一起讲解。</p>
+<h3 id="Info"><a href="#Info" class="headerlink" title="Info"></a>Info</h3><p><code>Info</code>主要包括三部分内容：<code>Deployment Target</code>、<code>Configurations</code>和 <code>Localizations</code>。 </p>
+<h4 id="1-Deployment-Target"><a href="#1-Deployment-Target" class="headerlink" title="1. Deployment Target"></a>1. <code>Deployment Target</code></h4><p>部署配置，主要是本 project 生成的 APP 的可运行的最低版本进行配置，默认是当前 Xcode 上 API 的最新版本。所以，在我们的项目中有需要对低版本适配的地方可以在这里设置。同样的，我们还可以在<code>build setting</code>中对这一属性进行设置，两者是同步的。target 的 <code>General</code>-&gt;<code>Deployment Info</code>-&gt;<code>Deployment Target</code>默认继承此属性，手动修改则覆盖此属性。</p>
+<h4 id="2-Configurations"><a href="#2-Configurations" class="headerlink" title="2. Configurations"></a>2. <code>Configurations</code></h4><p>用来配置 iOS 项目的<code>xcconfig</code>文件，主要用于在几套不同的开发环境编译。<code>xcconfig</code>文件其实就是 Xcode 里的<code>config</code>文件，本质是一个用来保存<code>Build Settings</code>键值对的<strong>纯文本文件</strong>。这些键值对会覆盖<code>Build Settings</code>中的值，所以当在<code>xcconfig</code>文件中配置了的选项，在<code>Build Settings</code>中设置将失效。具体使用<a href="https://www.jianshu.com/p/b1b6255ff3ee" target="_blank" rel="external">参照这里</a>。项目中一般不会进行<code>xcconfig</code>文件的自定义。</p>
+<p>Cocoapods 的项目配置管理很多都是依赖<code>xcconfig</code>文件去实现的。所以在使用 Cocoapods 进行导包的项目中，我们通过打开.xcworkspace 文件，我们会发现<code>Project</code>—&gt;<code>Info</code>—&gt;<code>Configutations</code>下的都有对应的配置文件，而原先没有用 Cocoapods 配置的则没有相关的配置文件，具体区别如下图所示。</p>
+<p><img src="iOS项目Project和Target配置详解.assets/ProjectAndTargets_06.png" alt="ProjectAndTargets_06"></p>
+<p><img src="iOS项目Project和Target配置详解.assets/ProjectAndTargets_05.png" alt="ProjectAndTargets_05"></p>
+<h4 id="3-Localizations"><a href="#3-Localizations" class="headerlink" title="3. Localizations"></a>3. <code>Localizations</code></h4><p>本地化，这里的功能主要是添加我们的App所支持的语言，通过<code>Localizations</code>选项下面的【+】【-】按钮可以添加或删除不同的语种，并可以选择根据手机的设置进行不同语种的自适应。关于最下面的选择是否开启国际化，默认是开启的，至于如何进行国际化和不同语种的适配详情见：<a href="http://www.cocoachina.com/ios/20151120/14258.html" target="_blank" rel="external">详述iOS国际化</a>。</p>
+<h3 id="Build-Settings-1"><a href="#Build-Settings-1" class="headerlink" title="Build Settings"></a>Build Settings</h3><p>与下面 Target 的 <code>Build Settings</code>一起介绍</p>
+<h2 id="Target-的属性"><a href="#Target-的属性" class="headerlink" title="Target 的属性"></a>Target 的属性</h2><p>Target 的属性设置的内容比较多，总共有<code>General</code>、<code>Capabilities</code>、<code>Resource tags</code>、<code>Info</code>、<code>Build setting</code>、<code>Build phases</code>和<code>Build rules</code>七个选项卡。</p>
+<h3 id="General"><a href="#General" class="headerlink" title="General"></a>General</h3><p><code>General</code>主要包括六部分内容：<code>Identity</code>、<code>Signing、</code> <code>Deployment Info</code>、<code>App Icons and Launch Images</code>、<code>Embedded Binaries</code>和<code>Linked Frameworks and Libraries</code>。 </p>
+<h4 id="Identity"><a href="#Identity" class="headerlink" title="Identity"></a><code>Identity</code></h4><p>标识符，栏主要定义了一些和应用发布有关的标识属性</p>
+<ul>
+<li>Display Name：App 应用显示名字，安装到iOS手机或iPad上App的名称。</li>
+<li>Bundle Identifier：包标识符，是该应用唯一的 ID，用来让操作系统和AppStore识别。在创建项目或者对象过程中Xcode 就自行创建了包标识符，一般情况下不要修改它。一般以公司域名倒序+App名称进行命名。</li>
+<li>Version：外部版本号，使用户能看到的版本号。</li>
+<li>Build：内部版本号，开发者自己看到的版本号，以区分内部测试版本。</li>
+</ul>
+<h4 id="Signing"><a href="#Signing" class="headerlink" title="Signing"></a><code>Signing</code></h4><p>签名，进行证书管理在真机调试或者打包时都需要进行签名进行认证才可以。</p>
+<ul>
+<li>Automatically manage signing：Xcode 8推出的自动签名功能，可以直接使用 Xcode 把 App 打包到真机上去测试，<a href="https://blog.csdn.net/java3182/article/details/78885145" target="_blank" rel="external">具体使用参考</a>。</li>
+<li>Team：开发团队，即开放者账号名称。</li>
+<li>Provisioning Profile：提供的配置文件。</li>
+<li>Signing Certificate：签名证书</li>
+</ul>
+<h4 id="Deployment-Info"><a href="#Deployment-Info" class="headerlink" title="Deployment Info"></a><code>Deployment Info</code></h4><p>部署信息，定义了一些和应用配置相关的标识属性</p>
+<ul>
+<li>Deployment Target：部署对象，用来设置支持的最低版本。这个和 project 的<code>info</code>中的一个意思，并且，这两个的设置最好是一样，如果不一样，最后的App会以target的设置为准。</li>
+<li>Devices：设备，设置支持的设备，有iPhone、iPad和Universal（通用）三个选项。</li>
+<li><p>Main Interface：主界面，应用启动时预加载的主界面视图。一般有两种方法：</p>
+<ol>
+<li>一种是通过 Main.storyboard 进行启动，设置这种方法需要我们整个项目的逻辑和跳转都在 Main.storyboard 中完成</li>
+<li>取消<code>stroryboard</code>的方式启动主界面，而是通过代码的方式运行main.m的方法进行启动，并通过在AppDelegate的 - (BOOL)application:(UIApplication <em>)application didFinishLaunchingWithOptions:(NSDictionary </em>)launchOptions 方法中指定主界面视图进行启动。<strong>一般项目中都是采用这种方法进行的，因为一般项目中界面比较多，很多都是通过纯代码的风格进行定义的，这样方便修改和定位问题，项目的逻辑也更清晰，特别是多人合作的项目，这种风格更适合</strong></li>
+</ol>
+</li>
+<li><p>Device Orientation：设备方向，定义应用支持的方向。有Portrait（正向）、Upside Down（倒置）、Landscape Left（横评、Home键在左）、Landscape Right（横评、Home键在右）四种方向。</p>
+</li>
+<li>Status Bar Style：状态栏状态，设置 App 启动时状态栏的状态，可设置为 Default（默认黑色）、Light（白色）。还可以设置是否隐藏，是否要全屏启动。尽在 App 启动时有效，启动完成后效果过期。</li>
+</ul>
+<h4 id="App-Icons-and-Launch-Images"><a href="#App-Icons-and-Launch-Images" class="headerlink" title="App Icons and Launch Images"></a><code>App Icons and Launch Images</code></h4><p>应用图标和启动页面。主要设置三项：应用图标、启动图片和启动页面。具体应用图标和启动页面的大小尺寸介绍见官网：<a href="https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/app-icon/" target="_blank" rel="external"><strong>Human Interface Guidelines</strong></a>。</p>
+<ul>
+<li>App Icons Source：应用图标，对应着文件资源 Assets.xcassets 目录中的 AppIcon 中的图片。最右边的面板可以选择添加哪一种或哪几种设备上的图标，每一个型号的设备上的图标的尺寸是不同的。在中间有一个个的小格子，我们将所有切好的图标直接拖过来，他们会自动找到自己应该放在的格子里。这些小格子主要分为四类：<ol>
+<li>Notification：通知时的图标，类似有应用相关的推送消息时，有时候需要显示本应用的图标则会显示这个尺寸的</li>
+<li>Spotlight：搜索小图标，当在Spotlight中输入应用名，搜索结果中出现该应用时的图标就是这个尺寸的，还有设置里的图标也是这个尺寸的。</li>
+<li>App：这就是正常的App图标，安装好之后在桌面显示的，或者分享推荐时显示的应用也是这个尺寸的图标</li>
+<li>App store：应用商店中的显示的图标</li>
+</ol>
+</li>
+</ul>
+<p><img src="iOS项目Project和Target配置详解.assets/ProjectAndTargets_08.png" alt="ProjectAndTargets_08"></p>
+<ul>
+<li>Luanch Image Source：启动图片，同样对应着文件资源Assets.xcassets目录中的LuanchImage中的图片，设定了各种情况下的启动图片，和 Appicon 一样，我们将所有切好的图标直接拖过来，他们会自动找到自己应该放在的格子里。<strong>启动图片实际上定义了应用启动后的界面大小</strong>，所以在不同机型中我们需要做好适配，见下面的【启动页面在屏幕适配中的作用】。一款App必须设定对应设备的启动图片，否则点开应用会是一片黑色。</li>
+<li>Luanch Screen File：启动页面文件，是一个storyboard文件，作用与 Luanch Image 一样，但是启动文件的优先级高于启动图片，就是说如果两个都设置了，那么启动页面以启动文件为准，如果都没有设置，则启动时是一片黑色。<ul>
+<li>启动页面的作用：在我们点击应用图标启动应用时，应用启动需要一定的操作时间，再启动期间，为了增强应用程序启动时的用户体验，您应该提供一个启动图像。启动图像与应用程序的首屏幕看起来非常相似。当用户在主屏幕上点击您的应用程序图标时，iPhone OS会立即显示这个启动图像。一旦准备就绪，您的应用程序就会显示它的首屏幕，来替换掉这个启动占位图像。一定要强调的是，之所以提供启动图像，是为了改善用户体验，并不是为了提供：应用程序进入体验，比如启动动画。</li>
+<li>启动页面在屏幕适配中的作用：每个机型，比如同时支持 iPhone 和 iPad的 程序，需要分别为 iPhone 跟 iPad 指定启动图片。当旧的 iPhone 4 的程序，运行在 iPhone 5 上面，没有iPhone 5的启动图片，就采用兼容模式，上下留黑边。当为 iPhone 5 指定了新的启动图片，系统就认为这个应用程序是已经适配了iPhone 5的。当旧的iPhone 5程序运行在iPhone 6上面，假如没有经过适配。旧程序自动等比放大，铺满新手机，旧程序也可以正常运行。这种方案可算是自动适配。但因为旧程序拉伸了，整体看起来有点虚，也不能更好利用大屏空间。当需要开发者手动适配的时候，跟iPhone 4过渡到iPhone 5一样，在新程序中，指定一张新的启动图片。当指定了启动图，系统就认为应用已经做好了屏幕适配，屏幕分辨率就变成应有的大小。在某机型上，<strong>如果是自动适配，比如iPhone 5，老版程序就会在屏幕上、下俩端多出俩块黑条；比如iPhone6/6plus，老版程序就会自动等比拉伸</strong>。那如何关闭自动适配？指定启动图或者使用Launch Screen File.xib，即程序使用手动适配，不会做拉伸等，但是程序内部必须已做处理，否则使用自动适配方案。</li>
+</ul>
+</li>
+</ul>
+<h4 id="Embedded-Binaries"><a href="#Embedded-Binaries" class="headerlink" title="Embedded Binaries"></a><code>Embedded Binaries</code></h4><p>绑定二进制文件，用来连接二进制文件，一般在使用第三方SDK的时候使用。</p>
+<h4 id="Linked-Frameworks-and-Libraries"><a href="#Linked-Frameworks-and-Libraries" class="headerlink" title="Linked Frameworks and Libraries"></a><code>Linked Frameworks and Libraries</code></h4><p>链接的框架和库，选择要链接的框架和库，既可以是SDK自带的框架，也可以是第三方框架，在 Build Phases 中也有相同的功能选项。</p>
+<h3 id="Capabilities"><a href="#Capabilities" class="headerlink" title="Capabilities"></a>Capabilities</h3><p>target 的 Capabilities 属性设置这一块主要是一些性能设置开关选择，例如推送通知、云存储、游戏中心、后台模式等，我们选择需要的开关进行打开或者关闭，这些相应的状态都会在 info.plist 中进行修改。所以，同样的，我们也可以在info.plist添加一些权限或性能开关之后，在target的capabilities中也会进行相应的修改的。</p>
+<h3 id="Resource-Tag"><a href="#Resource-Tag" class="headerlink" title="Resource Tag"></a>Resource Tag</h3><p>Target 中的 Resource Tag 选项卡主要是为项目中的资源进行添加 tag 分类。方便我们对其加载顺序和加载时机进行选择和设置，即实现按需加载，在需要的时候才加载资源。按需加载资源是由App Store托管的内容，它和下载的 App bundle是分开的。App请求一系列按需加载资源，而下载和存储资源是由操作系统来管理。这些资源可以是除可执行代码外，bundle 支持的任何类型。这样做的好处就是可以实现如下几种资源加载形式：</p>
+<ul>
+<li><strong>初始资源的延迟加载。</strong>app有一些资源是主要功能要用到的，但在启动时并不需要。将这些资源标记为“初始需要”。操作系统在app启动时会自动下载这些资源。例如，图片编辑app有许多不常用的滤镜。</li>
+<li><strong>app资源的延迟加载。</strong>app有一些只在特定情景下使用的资源，当应用可能要进入这些场景时，会请求这些资源。例如，在一个有很多关卡的游戏中，用户只需要当前关卡和下一关卡的资源。 </li>
+<li><strong>不常用资源的远程存储。</strong>app有一些很少使用的资源，当需要这些资源时会去请求它们。例如，当app第一次打开时会展示一个教程，而这个教程之后就可能不会在用到。app在第一次启动时请求教程的资源，这之后只在需要展示教程或者添加了新功能才去请求该资源。</li>
+<li><strong>应用内购买资源的远程存储。</strong>app提供包含额外资源的应用内购买。app会在启动完成后请求已购买模块的资源。例如，用户在一个键盘app内购买了SuperGeeky表情包。应用程序会在启动完成后请求表情包的资源。</li>
+</ul>
+<p><img src="iOS项目Project和Target配置详解.assets/1434337166834154.png" alt="18.png"></p>
+<p>在 Resource Tags 选项卡的 Prefetched 界面下，可以把 tag 分配给三个预获取优先级分类的其中一个。界面展示了按预获取分类分组的 tag。tag 可以在分类间拖动。</p>
+<ul>
+<li><strong>初始安装tag（Initial install tags）</strong>。只有在初始安装tag下载到设备后，app才能启动。这些资源会在下载app时一起下载。这部分资源的大小会包括在App Store中app的安装包大小。如果这些资源从来没有被NSBundleResourceRequest 对象获取过，就有可能被清理掉。</li>
+<li><strong>按顺序预获取tag（Prefetch tag order）</strong>。在app安装后会开始下载tag。tag会按照此处指定的顺序来下载。 </li>
+<li><strong>按需下载（Dowloaded only on demand）</strong>。当app请求一个tag，且tag没有缓存时，才会下载该tag。</li>
+</ul>
+<p>关于Resource Tag和按需加载的详情内容和步骤参见下面两篇文章：</p>
+<ul>
+<li><a href="http://www.cocoachina.com/ios/20150615/12155.html" target="_blank" rel="external">On-Demand Resources Guide中文版（按需加载资源–上）</a></li>
+<li><a href="http://www.cocoachina.com/ios/20150615/12152.html" target="_blank" rel="external">On-Demand Resources Guide中文版（按需加载资源—下）</a></li>
+</ul>
+<h3 id="Info-1"><a href="#Info-1" class="headerlink" title="Info"></a>Info</h3><p>Target 的 Info 属性设置界面如下图所示，主要分为五个部分<code>Custom iOS Target Properties</code>、<code>Docunment Types</code>、<code>Exported UTIs</code>、<code>Imported UTIs</code>、<code>URL types</code>。</p>
+<p><img src="iOS项目Project和Target配置详解.assets/926487-20180121192046818-1861518679.png" alt="img"></p>
+<h4 id="Custom-iOS-Target-Properties"><a href="#Custom-iOS-Target-Properties" class="headerlink" title="Custom iOS Target Properties"></a><code>Custom iOS Target Properties</code></h4><p>自定义 iOS 属性，Target 的 Info 属性里最重要的一项。在 target 的 Info 选项卡中的此项信息与我们项目资源目录下的 info.plist 文件中的内容是一致，并且修改其中一个另一个会自动修改。此外，<code>General</code> 选项卡中的一些设置也会对应到 info.plist 文件中，所以这些内容都是相通的，我们修改一处，其他的地方会同步修改。info.plist 中其实加载的信息会非常多，上面是创建项目之后自动生成的一些最基本的设置选项，每一项对应的意思如下解释：</p>
+<ul>
+<li>Localization native development region ： 与本地化设置有关，为默认的开发语言</li>
+<li>Executable file：程序安装包的名称</li>
+<li>Bundle identifier：软件唯一的标识，是根据公司的标识与项目名称自动生成的，在上传和测试的时候会用到</li>
+<li>InfoDictionary version：版本信息</li>
+<li>Bundle name：App安装后显示的名称</li>
+<li>Bundle OS Type code：用来标识软件包类型</li>
+<li>Bundle versions string, short：发布的版本字符串</li>
+<li>Bundle creator OS Type code：创建者的标识</li>
+<li>Bundle version：应用程序版本号</li>
+<li>Application requires iPhone environment：用于指示程序包是否只能运行在iPhone OS 系统上，默认为YES</li>
+<li>Launch screen interface file base name：欢迎界面的文件名称</li>
+<li>Main storyboard file base name：默认情况下程序的主入口</li>
+<li>Supported interface orientations：设置程序默认支持的方向</li>
+</ul>
+<p>除此之外，我们在开发过程可能还需要添加一些其他的信息，包括一些权限的添加，网络权限、定位权限、读写联系人权限等等，应用白名单的添加等都是在这里进行配置的。关于 info.plist 的具体信息和内容详情参见：<a href="http://www.cocoachina.com/ios/20160922/17611.html" target="_blank" rel="external"><strong>Xcode中的Info.plist字段列表详解</strong></a>。</p>
+<h4 id="Document-Types"><a href="#Document-Types" class="headerlink" title="Document Types"></a><code>Document Types</code></h4><p>文档类型，定义了应用程序所能识别的文档类型，并且还可以定义在系统中显示的该类型文档的自定义图标。</p>
+<h4 id="Exported-UTIs"><a href="#Exported-UTIs" class="headerlink" title="Exported UTIs"></a><code>Exported UTIs</code></h4><p>导出的UTI，UTI Uniform Type Identifiers —— 同一类型标识符。</p>
+<h4 id="Imported-UTIs"><a href="#Imported-UTIs" class="headerlink" title="Imported UTIs"></a><code>Imported UTIs</code></h4><p>导入的UTI</p>
+<h4 id="URL-Types"><a href="#URL-Types" class="headerlink" title="URL Types"></a><code>URL Types</code></h4><p>URL类型，用来定义URL以便让应用程序理解应用间交换的数据结构。可用于：IOS唤醒其他程序，程序间相互调用。例如：在 URLTypes 中 URLSchemes 中注册 AAPP；在B程序中，openUrl:[NSURL urlWithString:@”AAPP:”]；注意”:”冒号,没有冒号是不能成唤醒另一个程序的。其次如果参数中有“&amp;”特殊字符穿，建议对参数进行 base64 转换。</p>
+<h3 id="Build-Settings-2"><a href="#Build-Settings-2" class="headerlink" title="Build Settings"></a>Build Settings</h3><p>target 的 Build Settings 选项卡是最主要的一部分编译选项设置，配置界面如下图所示，完整的 Build Settings 共有将近40项配置内容。从配置界面上看，每一项的配置都有四列（如果使用pod，还会增加一列），可以看到，从左至右的顺序分别是：Resolved 列、带 Target 图标列、带 Project 图标列、iOS Default 列，每一列所代表的意义如下。</p>
+<p><img src="iOS项目Project和Target配置详解.assets/3FBCE6D5-218B-44D9-9944-79D3D23D9980.png" alt="3FBCE6D5-218B-44D9-9944-79D3D23D9980"></p>
+<ul>
+<li><strong>Resolved 列</strong>：<strong>最终确定的编译方式，无法自己设定</strong>。其结果是根据其右边三栏的选择结果以及优先级顺序来确定最后编译时采用的编译方式。在图的第二行选项卡中选择<code>combined</code>选项，可以直接地看到只有该栏的最后结果。</li>
+<li><strong>带 Target 图标列</strong>：<strong>target 的 Build Settings 配置的编译选项，可自定义</strong>。其优先级最高，一旦进行设置，则最后的编译方式以该栏的结果为准。</li>
+<li><strong>带 Project 图标列</strong>：<strong>project 的 Build Settings 配置的编译选项，可自定义</strong>，这一栏的结果与 project 中 build setting 选项卡中的结果是一致的，修改其中一个地方，另一处也会自动修改。其优先级介于 target 和 default 之间，当 target 没有设置编译选项，而该栏进行了设置时，则最后的编译方式以该栏为准。 </li>
+<li><strong>iOS Default 列</strong>：<strong>在创建项目时系统自带的默认编译选项，无法修改</strong>。优先级最低，只有当其他两栏都没有设置选项时，最后的编译方式才会以该栏为准。</li>
+</ul>
+<p><strong>优先级顺序：带 Target 图标列 &gt;&gt; 带 Project 图标列 &gt;&gt; iOS Default 列</strong>。（如果安装pod，新产生的一列优先级介于带 Target 图标列和带 Project 图标列之间）</p>
+<p><a href="http://www.360doc.com/content/14/1217/07/19175681_433531035.shtml" target="_blank" rel="external"><strong>Xcode 编译选项详解</strong></a>。</p>
+<h3 id="Build-phases"><a href="#Build-phases" class="headerlink" title="Build phases"></a>Build phases</h3><p>Target 的 build phases 选项卡的的主要功能是配置编译器在不同编译阶段的参数，包括编译所需的资源文件（包括代码、配置以及各种资源文件），配置界面如下图所示，主要包括四方面的内容。</p>
+<p><img src="iOS项目Project和Target配置详解.assets/C90783E8-1A9E-4C5E-8787-54753BFBE122.png" alt="C90783E8-1A9E-4C5E-8787-54753BFBE122"></p>
+<h4 id="Target-Dependencies"><a href="#Target-Dependencies" class="headerlink" title="Target Dependencies"></a><code>Target Dependencies</code></h4><p>Target 对象依赖阶段：某些 target 可能依赖某个 target 输出的值，这里设置依赖。依赖于其他 target 的输出的时候，在编译时系统会自动先编译被依赖的 target，得到输出值，再编译当前 target。对象依赖阶段可以让 Xcode 知道必须在当前选择的对象编译之前先编译的其它依赖对象（比如应用扩展、插件等等）。如单元测试 target，依赖于 App target，所以必须等 App target 编译完成之后再进行编译。</p>
+<h4 id="Compile-Sources"><a href="#Compile-Sources" class="headerlink" title="Compile Sources"></a><code>Compile Sources</code></h4><p>源文件阶段：是指将有哪些源代码被编译，可以通过对应的【+】【-】按钮进行添加或删除资源来控制编译的代码文件。并且可以通过修改此阶段的 Compiler Flags（编译器标识）来为每个单独文件设置其编译器标示，比如设置是否支持ARC。</p>
+<h4 id="Link-Binary-With-Libraries"><a href="#Link-Binary-With-Libraries" class="headerlink" title="Link Binary With Libraries"></a><code>Link Binary With Libraries</code></h4><p>链接二进制库阶段：是指编译过程中会引用哪些库文件，我们同样可以通过【+】【-】按钮进行添加或删除编译所引用的库文件。</p>
+<h4 id="Copy-Bundle-Resources"><a href="#Copy-Bundle-Resources" class="headerlink" title="Copy Bundle Resources"></a><code>Copy Bundle Resources</code></h4><p>拷贝 Bundle 资源阶段：是指生成的 product 的 .app 内将包含哪些资源文件，同样可以通过红框中的【+】【-】按钮进行添加或删除资源来控制编译的资源文件。该阶段定义了对象中的资源文件，包括应用程序、图标、storyboard、视频、模板等等。这些资源都会被复制到安装包的 Contents／Resources 文件夹下。</p>
+<h3 id="Build-Rules"><a href="#Build-Rules" class="headerlink" title="Build Rules"></a>Build Rules</h3><p>Build rules 指定了不同文件类型该如何编译。一般来说，开发者并不需要修改这里面的内容。</p>
+<p>如果需要对特定的文件类型添加处理方法，那么可以在此处添加一条新的规则。一条 build rule 指定了其应用于哪种文件类型，该文件类型是如何被处理的，以及输出内容被放置到何处。比方说，我们创建了一条预处理规则，该规则将Objective-C的实现文件当做输入，然后解析文件内部的注释内容，最后再输出一个.m文件，文件中包含了生成的代码。由于不能将 .m 文件既当做输入又当做输出，所以使用了.mal 后缀，定制的 build rule 如下所示：</p>
+<p><img src="iOS项目Project和Target配置详解.assets/48118764_5-6911734.png" alt="48118764_5-6911734"></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[const/static/extern的使用]]></title>
-      <url>http://liugangqiang.com/2017/05/19/const-static-extern%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+      <url>http://www.liugangqiang.com/2017/05/19/const-static-extern%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
       <content type="html"><![CDATA[<h2 id="const-与宏的区别"><a href="#const-与宏的区别" class="headerlink" title="const 与宏的区别"></a>const 与宏的区别</h2><ul>
 <li><code>编译时刻</code>:宏是预编译（编译之前处理），const是编译阶段。</li>
 <li><code>编译检查</code>:宏不做检查，不会报编译错误，只是替换，const会编译检查，会报编译错误。</li>
@@ -64,7 +247,7 @@
     
     <entry>
       <title><![CDATA[iOS内存分布]]></title>
-      <url>http://liugangqiang.com/2017/05/18/iOS%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/</url>
+      <url>http://www.liugangqiang.com/2017/05/18/iOS%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/</url>
       <content type="html"><![CDATA[<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><h2 id="RAM"><a href="#RAM" class="headerlink" title="RAM"></a>RAM</h2><p><strong>随机存取存储器</strong>（random access memory，RAM）又称作“<a href="https://baike.baidu.com/item/%E9%9A%8F%E6%9C%BA%E5%AD%98%E5%82%A8%E5%99%A8" target="_blank" rel="external">随机存储器</a>”，是与CPU直接交换数据的内部存储器，也叫主存(内存)。</p>
 <ul>
 <li>存储单元的内容可按需随意取出或存入，且存取的速度很快，与存储单元的位置无关。</li>
@@ -132,7 +315,7 @@
     
     <entry>
       <title><![CDATA[C语言的内存分布]]></title>
-      <url>http://liugangqiang.com/2017/05/09/C%E8%AF%AD%E8%A8%80%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/</url>
+      <url>http://www.liugangqiang.com/2017/05/09/C%E8%AF%AD%E8%A8%80%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83/</url>
       <content type="html"><![CDATA[<h2 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h2><p>经典的 C 语言内存分布包括以下 5 个部分:</p>
 <ol>
 <li>代码段 (Text segment)</li>
@@ -196,16 +379,16 @@
     
     <entry>
       <title><![CDATA[iOS分词]]></title>
-      <url>http://liugangqiang.com/2016/10/25/iOS%E5%88%86%E8%AF%8D/</url>
+      <url>http://www.liugangqiang.com/2016/10/25/iOS%E5%88%86%E8%AF%8D/</url>
       <content type="html"><![CDATA[<p>最近锤子科技发布新手机，手机推出重大功能分词（Big Bang），其实 iOS 拥有分词的 API，代码如下</p>
 <a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (NSArray *)stringTokenizerWithWord:(NSString *)word &#123;</span><br><span class="line">    NSMutableArray *keyWords = [NSMutableArray new];</span><br><span class="line">    CFStringTokenizerRef ref = CFStringTokenizerCreate(NULL, (__bridge CFStringRef)word, CFRangeMake(0, word.length),kCFStringTokenizerUnitWord,NULL);</span><br><span class="line">    CFRange range;</span><br><span class="line">    NSString *keyWord;</span><br><span class="line">    do &#123;</span><br><span class="line">        CFStringTokenizerAdvanceToNextToken(ref);</span><br><span class="line">        range = CFStringTokenizerGetCurrentTokenRange(ref);</span><br><span class="line">        if (range.length == 0) break;</span><br><span class="line">        keyWord = [word substringWithRange:NSMakeRange(range.location, range.length)];</span><br><span class="line">        [keyWords addObject:keyWord];</span><br><span class="line">    &#125; while (range.length &gt; 0); </span><br><span class="line">    return keyWords;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (NSArray *)stringTokenizerWithWord:(NSString *)word &#123;</span><br><span class="line">    NSMutableArray *keyWords = [NSMutableArray <span class="keyword">new</span>];</span><br><span class="line">    CFStringTokenizerRef ref = CFStringTokenizerCreate(<span class="literal">NULL</span>, (__bridge CFStringRef)word, CFRangeMake(<span class="number">0</span>, word.length),kCFStringTokenizerUnitWord,<span class="literal">NULL</span>);</span><br><span class="line">    CFRange range;</span><br><span class="line">    NSString *keyWord;</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        CFStringTokenizerAdvanceToNextToken(ref);</span><br><span class="line">        range = CFStringTokenizerGetCurrentTokenRange(ref);</span><br><span class="line">        <span class="keyword">if</span> (range.length == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">        keyWord = [word substringWithRange:NSMakeRange(range.location, range.length)];</span><br><span class="line">        [keyWords addObject:keyWord];</span><br><span class="line">    &#125; <span class="keyword">while</span> (range.length &gt; <span class="number">0</span>); </span><br><span class="line">    <span class="keyword">return</span> keyWords;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
     </entry>
     
     <entry>
       <title><![CDATA[CocoaPods安装和使用]]></title>
-      <url>http://liugangqiang.com/2016/07/04/CocoaPods%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</url>
+      <url>http://www.liugangqiang.com/2016/07/04/CocoaPods%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</url>
       <content type="html"><![CDATA[<h2 id="CocoaPods-简介"><a href="#CocoaPods-简介" class="headerlink" title="CocoaPods 简介"></a>CocoaPods 简介</h2><p>在 iOS 应用的开发过程中，经常会使用到第三方的开源类库，例如AFNetWorking、SDWebimage 等等。通常，我们会把第三方的框架从网上下载下来， 再拖入到我们的项目中，但是这样一个一个的操作十分繁琐，而且存在<strong>第三方库更新不及时，不易集中管理的问题</strong>。<br><a href="https://cocoapods.org" target="_blank" rel="external">CocoaPods</a> 是为解决此类问题而产生的第三方类库管理工具。它将第三方库集中到一起管理，只需要一行终端命令就第三方库进行安装、更新等处理。绝大部分有名的开源类库，都支持CocoaPods。作为iOS开发程序员，掌握 CocoaPods 的使用时必不可少的基本技能之一。</p>
 <a id="more"></a>
 <h2 id="CocoaPods-的安装"><a href="#CocoaPods-的安装" class="headerlink" title="CocoaPods 的安装"></a>CocoaPods 的安装</h2><h3 id="安装配置-Ruby-环境"><a href="#安装配置-Ruby-环境" class="headerlink" title="安装配置 Ruby 环境"></a>安装配置 Ruby 环境</h3><h4 id="检查-Ruby-环境（安装）"><a href="#检查-Ruby-环境（安装）" class="headerlink" title="检查 Ruby 环境（安装）"></a>检查 Ruby 环境（安装）</h4><p>CocoaPods 是使用 Ruby 语言编写，所以安装之前需要先安装 Ruby 环境。默认情况下，Mac OS X 系统已经安装好 Ruby。在终端直接使用以下命令，确认系统系统 Ruby 的版本信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ruby --version</span><br><span class="line">或者 </span><br><span class="line">$ ruby --v</span><br><span class="line"></span><br><span class="line">// 输出版本信息大致如下</span><br><span class="line">// ruby 2.0.0p648 (2015-12-16 revision 53162) [universal.x86_64-darwin15]</span><br></pre></td></tr></table></figure></p>
@@ -240,8 +423,8 @@
     
     <entry>
       <title><![CDATA[Hello World]]></title>
-      <url>http://liugangqiang.com/2016/06/17/hello-world/</url>
-      <content type="html"><![CDATA[<h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><p>Welcome to <em>The Poem and The Distance</em> ! I`m <em>刚刚</em> .</p>
+      <url>http://www.liugangqiang.com/2016/06/17/hello-world/</url>
+      <content type="html"><![CDATA[<h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><p>Welcome to <em>The Corner Grocery ! I`m </em>刚刚_ .</p>
 <a id="more"></a>
 ]]></content>
     </entry>
