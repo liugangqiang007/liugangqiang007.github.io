@@ -1,0 +1,877 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="LOTAnimationView继承自 LOTView ，其本质上还是 UIView 
+12// 关键字 @compatibility_alias 的意思是给一个类设置一个别名。这样就可以不用重构以前的类，直接使用新的名字替代原有的名字@compatibility_alias LOTView UIView;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lottie原理分析(一)">
+<meta property="og:url" content="http://liugangqiang.com/2018/04/20/Lottie原理分析/index.html">
+<meta property="og:site_name" content="街角杂货店">
+<meta property="og:description" content="LOTAnimationView继承自 LOTView ，其本质上还是 UIView 
+12// 关键字 @compatibility_alias 的意思是给一个类设置一个别名。这样就可以不用重构以前的类，直接使用新的名字替代原有的名字@compatibility_alias LOTView UIView;">
+<meta property="og:updated_time" content="2018-09-12T15:40:37.808Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lottie原理分析(一)">
+<meta name="twitter:description" content="LOTAnimationView继承自 LOTView ，其本质上还是 UIView 
+12// 关键字 @compatibility_alias 的意思是给一个类设置一个别名。这样就可以不用重构以前的类，直接使用新的名字替代原有的名字@compatibility_alias LOTView UIView;">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://liugangqiang.com/2018/04/20/Lottie原理分析/"/>
+
+  <title> Lottie原理分析(一) | 街角杂货店 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">街角杂货店</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">大多数时候，都在思考自己该走向何方</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Lottie原理分析(一)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-04-20T19:23:19+08:00" content="2018-04-20">
+              2018-04-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/04/20/Lottie原理分析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/04/20/Lottie原理分析/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="LOTAnimationView"><a href="#LOTAnimationView" class="headerlink" title="LOTAnimationView"></a>LOTAnimationView</h2><p>继承自 <code>LOTView</code> ，其本质上还是 <code>UIView</code> </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 关键字 @compatibility_alias 的意思是给一个类设置一个别名。这样就可以不用重构以前的类，直接使用新的名字替代原有的名字</span></span><br><span class="line">@compatibility_alias LOTView UIView;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p><code>LOTAnimationView</code> 内含有数个构造类方法</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Load animation by name from the default bundle, Images are also loaded from the bundle</span></span><br><span class="line">+ (instancetype)animationNamed:(NSString *)animationName;</span><br><span class="line">+ (instancetype)animationNamed:(NSString *)animationName inBundle:(NSBundle *)bundle;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// Creates an animation from the deserialized JSON Dictionary</span></span><br><span class="line">+ (instancetype)animationFromJSON:(NSDictionary *)animationJSON;</span><br><span class="line">+ (instancetype)animationFromJSON:(NSDictionary *)animationJSON inBundle:(NSBundle *)bundle;</span><br><span class="line"><span class="comment">/// 源代码第二个方法 animationJSON 参数使用的 nullable 修饰，应该可以使用 nonnull。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/// Loads an animation from a specific file path. WARNING Do not use a web URL for file path.</span></span><br><span class="line">+ (instancetype)animationWithFilePath:(NSString *)filePath;</span><br></pre></td></tr></table></figure>
+<p>这些方法最终调用 <code>LOTComposition</code> 类的对应方法，然后根据返回的 <code>LOTComposition</code> 对象初始化自己</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">+ (instancetype)animationNamed:(NSString *)animationName inBundle:(NSBundle *)bundle &#123;</span><br><span class="line">  LOTComposition *comp = [LOTComposition animationNamed:animationName inBundle:bundle];</span><br><span class="line">  <span class="keyword">return</span> [[self alloc] initWithModel:comp inBundle:bundle];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>LOTAnimationView 在使用 <code>-initWithModel:inBundle:</code> 初始化时做了四件事</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 赋值 bundle</span></span><br><span class="line">_bundle = bundle;</span><br><span class="line"><span class="comment">// 公共初始化，进行一些参数配置，比如动画速度、进度、是否循环、是否自动意逆画等</span></span><br><span class="line">[self _commonInit];</span><br><span class="line"><span class="comment">// 初始化动画容器，内部只有一个操作 self.clipsToBounds = YES</span></span><br><span class="line">[self _initializeAnimationContainer];</span><br><span class="line"><span class="comment">// 设置场景模型，如果 view 原先已有 model，则会先清空之前的操作，再设置</span></span><br><span class="line">[self _setupWithSceneModel:model];</span><br></pre></td></tr></table></figure>
+<p> <code>_setupWithSceneModel:</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)_setupWithSceneModel:(LOTComposition *)model &#123;</span><br><span class="line">  <span class="keyword">if</span> (_sceneModel) &#123;</span><br><span class="line">    <span class="comment">//  如果 view 原先已有 model，先清空之前的操作</span></span><br><span class="line">    [self _removeCurrentAnimationIfNecessary];</span><br><span class="line">    [self _callCompletionIfNecessary:NO];</span><br><span class="line">    [_compContainer removeFromSuperlayer];</span><br><span class="line">    _compContainer = nil;</span><br><span class="line">    _sceneModel = nil;</span><br><span class="line">    [self _commonInit];</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  _sceneModel = model;</span><br><span class="line">    <span class="comment">// 初始化 LOTCompositionContainer 对象</span></span><br><span class="line">  _compContainer = [[LOTCompositionContainer alloc] initWithModel:nil inLayerGroup:nil withLayerGroup:_sceneModel.layerGroup withAssestGroup:_sceneModel.assetGroup];</span><br><span class="line">  [self.layer addSublayer:_compContainer];</span><br><span class="line">  [self _restoreState];</span><br><span class="line">  [self setNeedsLayout];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="LOTComposition"><a href="#LOTComposition" class="headerlink" title="LOTComposition"></a>LOTComposition</h2><p>继承自 <code>NSObject</code>，负责 json 数据的解析。即将 json 串解析成 OC 对象，包含 json  的解析的所有模型对象。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法内部会先调用单例对象 LOTAnimationCache ，使用 animationName 去掉后.缀后作为 key, 获取已缓存的 LOTComposition 对象，如果获取到没有，才调用构造方法创建。创建完成后，也会加到缓存池中，并赋值 cacheKey 属性。直接使用 init... 方法或 +animationFromJSON: 方法则不会加入到缓存(因为不知道动画的名字)</span></span><br><span class="line">+(instancetype)animationNamed:(NSString *)animationName inBundle:(NSBundle *)bundle </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 将 json 文件转 NSDictionary 字典对象</span></span><br><span class="line">NSData *jsonData = [[NSData alloc] initWithContentsOfFile:filePath];</span><br><span class="line">NSDictionary *JSONObject = jsonData ? [NSJSONSerialization JSONObjectWithData:jsonData options:<span class="number">0</span> error:&amp;error] : nil;</span><br></pre></td></tr></table></figure>
+<p><code>LOTComposition</code> 类中最重要的内部方法为 <code>-_mapFromJSON:withAssetBundle:</code>，用来解析 json 转化的 字典对象</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)_mapFromJSON:(NSDictionary *)jsonDictionary withAssetBundle:(NSBundle *)bundle </span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// 获取宽高，确定动画 bounds</span></span><br><span class="line">  NSNumber *width = jsonDictionary[@<span class="string">"w"</span>];</span><br><span class="line">  NSNumber *height = jsonDictionary[@<span class="string">"h"</span>];</span><br><span class="line">  <span class="keyword">if</span> (width &amp;&amp; height) &#123;</span><br><span class="line">    CGRect bounds = CGRectMake(<span class="number">0</span>, <span class="number">0</span>, width.floatValue, height.floatValue);</span><br><span class="line">    _compBounds = bounds;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 获取动画起始帧，结束帧，和帧速率</span></span><br><span class="line">  _startFrame = [jsonDictionary[@<span class="string">"ip"</span>] copy];</span><br><span class="line">  _endFrame = [jsonDictionary[@<span class="string">"op"</span>] copy];</span><br><span class="line">  _framerate = [jsonDictionary[@<span class="string">"fr"</span>] copy];</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 根据动画帧参数算出动画时间</span></span><br><span class="line">  <span class="keyword">if</span> (_startFrame &amp;&amp; _endFrame &amp;&amp; _framerate) &#123;</span><br><span class="line">    NSInteger frameDuration = (_endFrame.integerValue - _startFrame.integerValue) - <span class="number">1</span>;</span><br><span class="line">    NSTimeInterval timeDuration = frameDuration / _framerate.floatValue;</span><br><span class="line">    _timeDuration = timeDuration;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 获取资源信息，只是建立对应的 _assetJSONMap</span></span><br><span class="line">  NSArray *assetArray = jsonDictionary[@<span class="string">"assets"</span>];</span><br><span class="line">  <span class="keyword">if</span> (assetArray.count) &#123;</span><br><span class="line">    _assetGroup = [[LOTAssetGroup alloc] initWithJSON:assetArray withAssetBundle:bundle withFramerate:_framerate];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 获取图层信息，需要资源信息 _assetGroup</span></span><br><span class="line">  NSArray *layersJSON = jsonDictionary[@<span class="string">"layers"</span>];</span><br><span class="line">  <span class="keyword">if</span> (layersJSON) &#123;</span><br><span class="line">    _layerGroup = [[LOTLayerGroup alloc] initWithLayerJSON:layersJSON</span><br><span class="line">                                            withAssetGroup:_assetGroup</span><br><span class="line">                                             withFramerate:_framerate];</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 根据 _framerate 获取资源文件建立 _assetMap，之后置空 _assetJSONMap</span></span><br><span class="line">  [_assetGroup finalizeInitializationWithFramerate:_framerate];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此方法中又包含两个对象 <code>LOTAssetGroup</code>、<code>LOTLayerGroup</code>分别用于存放<code>LOTAsset</code>和<code>LOTLayer</code> 对象。二者都是通过 <code>id ：对象</code>的方式将子对象存储到字典中，方便之后取用。（<code>LOTAsset</code>为<code>id</code>字段，<code>LOTLayer</code> 为<code>ind</code>）。内部还包含其他很多 model，总之，就是对应要解析的 json 字符串需要的各种模型。</p>
+<p>###LOTAsset</p>
+<p>含有资源的 id、名字、宽、高、文件子路径、包含的子图层等信息。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">NSString *referenceID; 	<span class="comment">// 资源id ---id</span></span><br><span class="line">NSNumber *assetWidth;	<span class="comment">// 宽度	---w</span></span><br><span class="line">NSNumber *assetHeight;  <span class="comment">// 高度	---h</span></span><br><span class="line"></span><br><span class="line">NSString *imageName;	<span class="comment">// 图片名字---p</span></span><br><span class="line">NSString *imageDirectory;  <span class="comment">// 文件夹路径	---u</span></span><br><span class="line"></span><br><span class="line">LOTLayerGroup *layerGroup; <span class="comment">// 子图层数组	---layers</span></span><br></pre></td></tr></table></figure>
+<h3 id="LOTLayer"><a href="#LOTLayer" class="headerlink" title="LOTLayer"></a>LOTLayer</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">NSString *layerName;	<span class="comment">// 图层名字 ---nm</span></span><br><span class="line">NSString *referenceID;	<span class="comment">// 引用id ---refid</span></span><br><span class="line">NSNumber *layerID;		<span class="comment">// 图层id ---ind</span></span><br><span class="line">LOTLayerType layerType; <span class="comment">// 图层类型,有Precomp、Solid、Image、Null、Shape、Unknown 五种枚举 ---ty</span></span><br><span class="line">NSNumber *parentID;		<span class="comment">// 起源   ---parent</span></span><br><span class="line">NSNumber *startFrame;	<span class="comment">// 开始帧 ---st</span></span><br><span class="line">NSNumber *inFrame;		<span class="comment">// 		 ---ip</span></span><br><span class="line">NSNumber *outFrame;		<span class="comment">// 		 ---op</span></span><br><span class="line">NSNumber *timeStretch;  <span class="comment">// 时间拉伸	---sr</span></span><br><span class="line">CGRect layerBounds;		<span class="comment">// bounds 宽高算出</span></span><br><span class="line"></span><br><span class="line">NSArray&lt;LOTShapeGroup *&gt; *shapes;	<span class="comment">// ---shapes</span></span><br><span class="line">NSArray&lt;LOTMask *&gt; *masks;			<span class="comment">// ---masksProperties</span></span><br><span class="line"></span><br><span class="line">NSNumber *layerWidth;	<span class="comment">// 图层宽	根据不同的layerType值，有不同的获取方式</span></span><br><span class="line">NSNumber *layerHeight;	<span class="comment">// 图层高	</span></span><br><span class="line">UIColor *solidColor;</span><br><span class="line">LOTAsset *imageAsset;</span><br><span class="line"></span><br><span class="line">LOTKeyframeGroup *opacity;		 <span class="comment">// 不透明度   --&gt;ks--&gt;o</span></span><br><span class="line">LOTKeyframeGroup *timeRemapping; <span class="comment">// 时间重映射 ---tm</span></span><br><span class="line">LOTKeyframeGroup *rotation;		 <span class="comment">// 旋转     --&gt;ks--&gt;r或者rz</span></span><br><span class="line">LOTKeyframeGroup *position;		 <span class="comment">// 位置     --&gt;ks--&gt;p</span></span><br><span class="line"></span><br><span class="line">LOTKeyframeGroup *positionX;</span><br><span class="line">LOTKeyframeGroup *positionY;</span><br><span class="line"></span><br><span class="line">LOTKeyframeGroup *anchor;		<span class="comment">// 角度     --&gt;ks--&gt;a</span></span><br><span class="line">LOTKeyframeGroup *scale;		<span class="comment">// 比例     --&gt;ks--&gt;s</span></span><br><span class="line"></span><br><span class="line">LOTMatteType matteType;			<span class="comment">// 磨砂类型  ---tt</span></span><br></pre></td></tr></table></figure>
+<h2 id="LOTCompositionContainer"><a href="#LOTCompositionContainer" class="headerlink" title="LOTCompositionContainer"></a>LOTCompositionContainer</h2><p>顾名思义，<code>LOTCompositionContainer</code>是数据 <code>LOTComposition</code> 展示的控件，继承自 <code>LOTLayerContainer</code> ，进而继承自<code>CALayer</code> 。动画效果全部在这里实现。</p>
+<h2 id="LOTAnimationCache"><a href="#LOTAnimationCache" class="headerlink" title="LOTAnimationCache"></a>LOTAnimationCache</h2><p>继承自 <code>NSObject</code>，单例对象，用于缓存加载过得 <code>LOTComposition</code> 对象。</p>
+<p>内有两个对象<code>animationsCache_</code> 和<code>lruOrderArray_</code> ，分别存储缓存的<code>LOTComposition</code> 对象和 有先后顺序的key</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSMutableDictionary *animationsCache_;</span><br><span class="line">NSMutableArray *lruOrderArray_;</span><br></pre></td></tr></table></figure>
+<p>提供的方法有：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Global Cache 获取全局单例对象</span></span><br><span class="line">+ (instancetype)sharedCache;</span><br><span class="line"><span class="comment">/// Adds animation to the cache 添加缓存</span></span><br><span class="line">- (<span class="keyword">void</span>)addAnimation:(LOTComposition *)animation forKey:(NSString *)key;</span><br><span class="line"><span class="comment">/// Returns animation from cache. 获取缓存的对象</span></span><br><span class="line">- (LOTComposition * _Nullable)animationForKey:(NSString *)key;</span><br><span class="line"><span class="comment">/// Removes a specific animation from the cache 移除一个缓存的对象</span></span><br><span class="line">- (<span class="keyword">void</span>)removeAnimationForKey:(NSString *)key;</span><br><span class="line"><span class="comment">/// Clears Everything from the Cache 清除所有缓存</span></span><br><span class="line">- (<span class="keyword">void</span>)clearCache;</span><br><span class="line"><span class="comment">/// Disables Caching Animation Model Objects 不使用缓存池</span></span><br><span class="line">- (<span class="keyword">void</span>)disableCaching;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 其内部还有缓存数量限制，最大为50个，超出上限自动清理。可以学习缓存池的规范写法。</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/03/JavaScriptCore 解析/" rel="next" title="JavaScriptCore 解析">
+                <i class="fa fa-chevron-left"></i> JavaScriptCore 解析
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2018/04/20/Lottie原理分析/"
+           data-title="Lottie原理分析(一)" data-url="http://liugangqiang.com/2018/04/20/Lottie原理分析/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars2.githubusercontent.com/u/11585772?v=3&s=460"
+               alt="刘钢强" />
+          <p class="site-author-name" itemprop="name">刘钢强</p>
+          <p class="site-description motion-element" itemprop="description">iOS Developer</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/liugangqiang007" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/liu-gang-qiang-lgq" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LOTAnimationView"><span class="nav-number">1.</span> <span class="nav-text">LOTAnimationView</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LOTComposition"><span class="nav-number">2.</span> <span class="nav-text">LOTComposition</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LOTLayer"><span class="nav-number">2.1.</span> <span class="nav-text">LOTLayer</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LOTCompositionContainer"><span class="nav-number">3.</span> <span class="nav-text">LOTCompositionContainer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LOTAnimationCache"><span class="nav-number">4.</span> <span class="nav-text">LOTAnimationCache</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘钢强</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"liugangqiang"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+
+  
+
+  
+
+</body>
+</html>
